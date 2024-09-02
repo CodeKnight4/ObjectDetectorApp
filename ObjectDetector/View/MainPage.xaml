@@ -1,17 +1,26 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              x:Class="ObjectDetector.MainPage">
+
 
     <ScrollView>
         <VerticalStackLayout
             Padding="30,0"
-            Spacing="25">
-            <Image
+            Spacing="25"
+            Background="PaleTurquoise">
+            <Grid ColumnDefinitions="416,*,*" RowDefinitions="*,416">
+                <toolkit:CameraView 
+                Grid.ColumnSpan="3" 
+                Grid.Row="1"
+                SelectedCamera="{Binding SelectedCamera}"/>
+            </Grid>
+            <!--<Image
                 Source="dotnet_bot.png"
                 HeightRequest="185"
                 Aspect="AspectFit"
-                SemanticProperties.Description="dot net bot in a race car number eight" />
+                SemanticProperties.Description="dot net bot in a race car number eight" />-->
 
             <Label
                 Text="Hello, World!"
@@ -25,11 +34,11 @@
                 SemanticProperties.Description="Welcome to dot net Multi platform App U I" />
 
             <Button
-                x:Name="CounterBtn"
-                Text="Click me" 
-                SemanticProperties.Hint="Counts the number of times you click"
-                Clicked="OnCounterClicked"
-                HorizontalOptions="Fill" />
+                x:Name="CameraBtn"
+                Text="📷" 
+                SemanticProperties.Hint="Opens the camera app when you click"
+                Clicked="OnCameraClicked"
+                HorizontalOptions="Center" />
         </VerticalStackLayout>
     </ScrollView>
 
