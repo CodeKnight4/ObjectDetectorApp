@@ -9,6 +9,7 @@ namespace ObjectDetector
         {
             InitializeComponent();
             CameraWindow.IsVisible = false;
+            DetectBtn.IsVisible = false;
         }
 
         private async void OnCameraClicked(object sender, EventArgs e)
@@ -28,15 +29,17 @@ namespace ObjectDetector
             {
                 CameraBtn.ImageSource = "video_slash_solid.png";
                 CameraWindow.IsVisible = true;
+                DetectBtn.IsVisible= true;
             }
             else
             {
                 CameraBtn.ImageSource = "video_solid.png";
                 CameraWindow.IsVisible = false;
+                DetectBtn.IsVisible = false;
 
             }
 
-            await Task.Delay(500); // Give a second to the program to setup the device camera
+            await Task.Delay(1000); // Give a second to the program to setup the device camera
         }
     }
 
