@@ -10,7 +10,9 @@
             Padding="30,0"
             Spacing="25"
             Background="PaleTurquoise">
-            <Grid ColumnDefinitions="416,*,*" RowDefinitions="*,416">
+            <Grid x:Name="CameraWindow"
+                  ColumnDefinitions="416,*,*" 
+                  RowDefinitions="*,416">
                 <toolkit:CameraView 
                 Grid.ColumnSpan="3" 
                 Grid.Row="1"
@@ -35,10 +37,13 @@
 
             <Button
                 x:Name="CameraBtn"
-                Text="📷" 
-                SemanticProperties.Hint="Opens the camera app when you click"
+                ImageSource="video_solid.png"
+                MaximumWidthRequest="80"
+                MaximumHeightRequest="60"
+                SemanticProperties.Hint="Opens/closes the camera app when clicked"
                 Clicked="OnCameraClicked"
-                HorizontalOptions="Center" />
+                HorizontalOptions="FillAndExpand"/>
+
         </VerticalStackLayout>
     </ScrollView>
 
