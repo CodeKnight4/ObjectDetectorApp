@@ -28,5 +28,7 @@
 	</array>
 	<key>XSAppIconAssets</key>
 	<string>Assets.xcassets/appicon.appiconset</string>
+  <key>NSCameraUsageDescription</key>
+  <string>To get video data for application</string>
 </dict>
 </plist>
