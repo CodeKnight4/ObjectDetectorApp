@@ -63,15 +63,13 @@
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="8.0.0" />
 		<PackageReference Include="Microsoft.ML" Version="3.0.1" />
 		<PackageReference Include="Microsoft.ML.ImageAnalytics" Version="3.0.1" />
-		<PackageReference Include="Microsoft.ML.OnnxRuntime" Version="1.19.1" />
+		<PackageReference Include="Microsoft.ML.OnnxRuntime" Version="1.19.2" />
 		<PackageReference Include="Microsoft.ML.OnnxTransformer" Version="3.0.1" />
 		<PackageReference Include="Microsoft.Windows.Compatibility" Version="8.0.8" />
-		<PackageReference Include="OpenCVSharp" Version="2.4.0.1" />
 	</ItemGroup>
 
 	<ItemGroup>
 	  <Folder Include="Model\" />
-	  <Folder Include="ViewModel\" />
 	</ItemGroup>
 
 </Project>

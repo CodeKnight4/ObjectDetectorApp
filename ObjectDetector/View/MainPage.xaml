@@ -10,35 +10,58 @@
             Padding="30,0"
             Spacing="25"
             Background="PaleTurquoise">
-            <Grid ColumnDefinitions="416,*,*" RowDefinitions="*,416">
-                <toolkit:CameraView 
+            <Grid x:Name="CameraWindow"
+                  ColumnDefinitions="416,*,*" 
+                  RowDefinitions="*,416"
+                  HorizontalOptions="Center">
+                <toolkit:CameraView
+                x:Name="MyCamera"
+                MediaCaptured="MyCamera_MediaCaptured"
                 Grid.ColumnSpan="3" 
                 Grid.Row="1"
                 SelectedCamera="{Binding SelectedCamera}"/>
             </Grid>
             <!--<Image
+                x:Name="MyImage"
                 Source="dotnet_bot.png"
                 HeightRequest="185"
-                Aspect="AspectFit"
-                SemanticProperties.Description="dot net bot in a race car number eight" />-->
+                Aspect="AspectFit" />-->
 
             <Label
-                Text="Hello, World!"
+                Text="Hello, welcome to Whatisit?"
+                TextColor="Black"
                 Style="{StaticResource Headline}"
                 SemanticProperties.HeadingLevel="Level1" />
 
             <Label
-                Text="Welcome to &#10;.NET Multi-platform App UI"
+                Text="This is an object detection application, just press the camera button below and start detecting things!"
+                TextColor="Black"
                 Style="{StaticResource SubHeadline}"
                 SemanticProperties.HeadingLevel="Level2"
                 SemanticProperties.Description="Welcome to dot net Multi platform App U I" />
+            <HorizontalStackLayout
+                HorizontalOptions="Center"
+                Spacing="10"
+                Padding="10">
+                <Button
+                    x:Name="CameraBtn"
+                    ImageSource="video_solid.png"
+                    MaximumWidthRequest="80"
+                    MaximumHeightRequest="60"
+                    SemanticProperties.Hint="Opens/closes the camera app when clicked"
+                    Clicked="OnCameraClicked"
+                    HorizontalOptions="CenterAndExpand"/>
 
-            <Button
-                x:Name="CameraBtn"
-                Text="📷" 
-                SemanticProperties.Hint="Opens the camera app when you click"
-                Clicked="OnCameraClicked"
-                HorizontalOptions="Center" />
+                <Button
+                    x:Name="DetectBtn"
+                    Text="Detect 🔍"
+                    Clicked="DetectBtnClicked"
+                    MaximumWidthRequest="100"
+                    MaximumHeightRequest="60"
+                    SemanticProperties.Hint="Opens/closes the camera app when clicked"
+                    HorizontalOptions="Center"/>
+
+            </HorizontalStackLayout>
         </VerticalStackLayout>
     </ScrollView>
 
