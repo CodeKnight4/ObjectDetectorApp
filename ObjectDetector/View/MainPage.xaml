@@ -14,16 +14,18 @@
                   ColumnDefinitions="416,*,*" 
                   RowDefinitions="*,416"
                   HorizontalOptions="Center">
-                <toolkit:CameraView 
+                <toolkit:CameraView
+                x:Name="MyCamera"
+                MediaCaptured="MyCamera_MediaCaptured"
                 Grid.ColumnSpan="3" 
                 Grid.Row="1"
                 SelectedCamera="{Binding SelectedCamera}"/>
             </Grid>
             <!--<Image
+                x:Name="MyImage"
                 Source="dotnet_bot.png"
                 HeightRequest="185"
-                Aspect="AspectFit"
-                SemanticProperties.Description="dot net bot in a race car number eight" />-->
+                Aspect="AspectFit" />-->
 
             <Label
                 Text="Hello, welcome to Whatisit?"
@@ -53,6 +55,7 @@
                 <Button
                     x:Name="DetectBtn"
                     Text="Detect 🔍"
+                    Clicked="DetectBtnClicked"
                     MaximumWidthRequest="100"
                     MaximumHeightRequest="60"
                     SemanticProperties.Hint="Opens/closes the camera app when clicked"
