@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Maui.Core;
+using ObjectDetector.ViewModel;
 
 namespace ObjectDetector
 {
@@ -11,6 +12,7 @@ namespace ObjectDetector
         public MainPage(ICameraProvider cameraProvider)
         {
             InitializeComponent();
+            BindingContext = new MainPageViewModel();
             CameraWindow.IsVisible = false;
             DetectBtn.IsVisible = false;
             this._cameraProvider = cameraProvider;
