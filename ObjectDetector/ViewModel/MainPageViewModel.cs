@@ -1,7 +1,7 @@
 ﻿namespace ObjectDetector.ViewModel
 
 {
-    public class MainPageViewModel : BaseViewModel
+    public partial class MainPageViewModel : BaseViewModel
     {
     }
 }
