@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
 using CommunityToolkit.Maui;
+using ObjectDetector.ViewModel;
 
 namespace ObjectDetector
 {
@@ -17,6 +18,7 @@ namespace ObjectDetector
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                 });
 
+            builder.Services.AddTransient<MainPageViewModel>();
             builder.Services.AddTransient<MainPage>();
 #if DEBUG
     		builder.Logging.AddDebug();
