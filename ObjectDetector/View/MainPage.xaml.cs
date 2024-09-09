@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Maui.Core;
+using CommunityToolkit.Maui.Views;
 using ObjectDetector.ViewModel;
 
 namespace ObjectDetector
@@ -7,20 +8,20 @@ namespace ObjectDetector
     {
         private readonly MainPageViewModel _viewModel;
 
-        public MainPage(MainPageViewModel viewModel)
+        public MainPage()
         {
             InitializeComponent();
-            _viewModel = viewModel;
+            _viewModel = new MainPageViewModel(MyCamera);
             BindingContext = _viewModel;
 
-            MyCamera.MediaCaptured += MyCamera_MediaCaptured;
+            // MyCamera.MediaCaptured += MyCamera_MediaCaptured;
         }
 
-        protected async override void OnNavigatedTo(NavigatedToEventArgs args)
-        {
-            base.OnNavigatedTo(args);
-            // Perform any additional setup after navigation if needed
-        }
+        //protected override void OnNavigatedTo(NavigatedToEventArgs args)
+        //{
+        //    base.OnNavigatedTo(args);
+        //    
+        //}
 
         protected override void OnNavigatedFrom(NavigatedFromEventArgs args)
         {
@@ -28,9 +29,9 @@ namespace ObjectDetector
             MyCamera.MediaCaptured -= MyCamera_MediaCaptured;
         }
 
-        private void MyCamera_MediaCaptured(object? sender, CommunityToolkit.Maui.Views.MediaCapturedEventArgs args)
+        private async void MyCamera_MediaCaptured(object? sender, CommunityToolkit.Maui.Views.MediaCapturedEventArgs args)
         {
-            _viewModel.HandleMediaCaptured(args.Media);
+            await _viewModel.HandleMediaCaptured(args);
         }
     }
 }
