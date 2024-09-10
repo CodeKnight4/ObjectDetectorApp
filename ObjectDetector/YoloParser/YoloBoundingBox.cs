@@ -19,5 +19,13 @@ namespace ObjectDetector.YoloParser
         }
 
         public Color BoxColor { get; set; }
+
+        //public YoloBoundingBox(Color color, string? label, float confidence, BoundingBoxDimensions dimension)
+        //{
+        //    BoxColor = color;
+        //    Label = label;
+        //    Confidence = confidence;
+        //    Dimensions = dimension;
+        //}
     }
 }

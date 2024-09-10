@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using Microsoft.Maui.Primitives;
 using Microsoft.ML;
 using ObjectDetector.Model;
 using ObjectDetector.YoloParser;
@@ -16,6 +17,7 @@ namespace ObjectDetector.Services
         private readonly string modelFolder;
         private string modelFilePath;
         public MLContext? MlContext { get; private set; }
+        public IList<YoloBoundingBox> ListOfBoxes { get; private set; }
 
         public ObjectDetectionService(Stream imageStream)
         {
@@ -24,6 +26,7 @@ namespace ObjectDetector.Services
             modelFolder = Path.Combine(FileSystem.AppDataDirectory, "Models");
             outputFolder = Path.Combine(imagesFolder, "Output");
             modelFilePath = Path.Combine(modelFolder, "TinyYolo2_model.onnx");
+            ListOfBoxes = [];
 
             ObjectDetectionService.CreateDirectoryIfNotExists(imagesFolder);
             ObjectDetectionService.CreateDirectoryIfNotExists(outputFolder);
@@ -128,6 +131,20 @@ namespace ObjectDetector.Services
                 width = (uint)originalImageWidth * width / OnnxModelScorer.ImageNetSettings.imageWidth;
                 height = (uint)originalImageHeight * height / OnnxModelScorer.ImageNetSettings.imageHeight;
 
+                // Added updated box lengths to new list to use outside
+                ListOfBoxes.Add(new YoloBoundingBox()
+                {
+                    Dimensions = new BoundingBoxDimensions
+                    {
+                        X = x,
+                        Y = y,
+                        Width = width,
+                        Height = height,
+                    },
+                    Confidence = box.Confidence,
+                    Label = box.Label,
+                    BoxColor = box.BoxColor
+                });
                 string text = $"{box.Label} ({box.Confidence * 100:0}%)";
 
                 // Draw Bounding Box

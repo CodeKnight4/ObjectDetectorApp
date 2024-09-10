@@ -17,6 +17,7 @@ namespace ObjectDetector
                 {
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
+                    fonts.AddFont("Arial.ttf", "Arial");
                 });
 
             builder.Services.AddSingleton<ObjectDetectionService>();

@@ -21,6 +21,11 @@
                     x:Name="MyCamera"
                     MediaCaptured="MyCamera_MediaCaptured"
                     Grid.ColumnSpan="3"/>
+                <GraphicsView 
+                    x:Name="graphicsView"
+                    Drawable="{Binding Drawable}"
+                    HorizontalOptions="FillAndExpand"
+                    VerticalOptions="FillAndExpand" />
             </Grid>
 
             <VerticalStackLayout
