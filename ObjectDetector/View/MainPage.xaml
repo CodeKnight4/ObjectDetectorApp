@@ -8,34 +8,36 @@
 
     <ScrollView>
         <VerticalStackLayout
-            Padding="30,0"
+            Padding="15,15"
             Spacing="25"
             Background="PaleTurquoise">
             <Grid x:Name="CameraWindow"
-                  ColumnDefinitions="416,*,*" 
-                  RowDefinitions="*,416"
+                  ColumnDefinitions="*" 
+                  RowDefinitions="*"
                   HorizontalOptions="Center"
                   IsVisible="{Binding IsCameraVisible}">
+                
                 <toolkit:CameraView
                     x:Name="MyCamera"
                     MediaCaptured="MyCamera_MediaCaptured"
-                    Grid.ColumnSpan="3" 
-                    Grid.Row="1"/>
+                    Grid.ColumnSpan="3"/>
             </Grid>
 
             <VerticalStackLayout
                 IsVisible="{Binding IsCameraNotVisible}">
+                
                 <Label
                     Text="Hello, welcome to Whatisit?"
                     TextColor="Black"
                     Style="{StaticResource Headline}"
                     SemanticProperties.HeadingLevel="Level1" />
                 <Label
-                    Text="This is an object detection application, just press the camera button below and start detecting things!"
+                    Padding="25"
+                    Text="This is a simple object detection application, &#x0a; just press the camera button below and start detecting things!"
                     TextColor="Black"
                     Style="{StaticResource SubHeadline}"
                     SemanticProperties.HeadingLevel="Level2"
-                    SemanticProperties.Description="Welcome to dot net Multi platform App U I" />
+                    SemanticProperties.Description="Main message" />
             </VerticalStackLayout>
             
             <HorizontalStackLayout

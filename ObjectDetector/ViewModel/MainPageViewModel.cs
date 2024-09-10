@@ -102,6 +102,7 @@ namespace ObjectDetector.ViewModel
                 Trace.WriteLine($"Image saved to variable");
                 var detectionService = new ObjectDetectionService(imageStream.Media);
                 await detectionService.InitializeAsync();
+                
                 // CapturedImageStream = Path.Combine(FileSystem.AppDataDirectory, "Images/Output/ProcessedImg.png");
                 // Troublesome line of code ^
 

@@ -22,9 +22,9 @@ namespace ObjectDetector.YoloParser
 
         private readonly string[] labels =
             [
-                "aeroplane", "bicycle", "bird", "bottle",
+                "aeroplane", "bicycle", "bird", "boat", "bottle",
                 "bus", "car", "cat", "chair", "cow",
-                "diningtable", "dog", "fork", "horse", "motorbike", "person",
+                "diningtable", "dog", "horse", "motorbike", "person",
                 "pottedplant", "sheep", "sofa", "train", "tvmonitor"
             ];
 

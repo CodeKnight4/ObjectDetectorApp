@@ -75,11 +75,11 @@ namespace ObjectDetector.Services
 
                 // Create instance of model scorer
                 var modelScorer = new OnnxModelScorer(imagesFolder, modelFilePath, MlContext);
-                Trace.WriteLine("Step 1");
+                // Trace.WriteLine("Step 1");
 
                 // Use model to score data
                 IEnumerable<float[]> probabilities = modelScorer.Score(imageDataView);
-                Trace.WriteLine("Step 2");
+                // Trace.WriteLine("Step 2");
 
                 YoloOutputParser parser = new();
 
@@ -88,14 +88,14 @@ namespace ObjectDetector.Services
                     .Select(probability => parser.ParseOutputs(probability))
                     .Select(boxes => YoloOutputParser.FilterBoundingBoxes(boxes, 5, .5F));
 
-                Trace.WriteLine("Step 3");
+                // Trace.WriteLine("Step 3");
                 string imageFileName = "ProcessedImage.png";
                 IList<YoloBoundingBox> detectedObjects = boundingBoxes.ElementAt(0);
-                Trace.WriteLine("Step 4");
+                // Trace.WriteLine("Step 4");
                 DrawBoundingBox(detectedObjects);
-                Trace.WriteLine("Step 5");
+                // Trace.WriteLine("Step 5");
                 ObjectDetectionService.LogDetectedObjects(imageFileName, detectedObjects);
-                Trace.WriteLine("We have finished");
+                // Trace.WriteLine("We have finished");
 
             }
             catch (Exception ex)
