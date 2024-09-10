@@ -2,67 +2,86 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:local="clr-namespace:ObjectDetector.ViewModel"
              x:Class="ObjectDetector.MainPage">
 
 
     <ScrollView>
         <VerticalStackLayout
-            Padding="30,0"
+            Padding="15,15"
             Spacing="25"
             Background="PaleTurquoise">
             <Grid x:Name="CameraWindow"
-                  ColumnDefinitions="416,*,*" 
-                  RowDefinitions="*,416"
-                  HorizontalOptions="Center">
+                  ColumnDefinitions="*" 
+                  RowDefinitions="*"
+                  HorizontalOptions="Center"
+                  IsVisible="{Binding IsCameraVisible}">
+                
                 <toolkit:CameraView
-                x:Name="MyCamera"
-                MediaCaptured="MyCamera_MediaCaptured"
-                Grid.ColumnSpan="3" 
-                Grid.Row="1"
-                SelectedCamera="{Binding SelectedCamera}"/>
+                    x:Name="MyCamera"
+                    MediaCaptured="MyCamera_MediaCaptured"
+                    Grid.ColumnSpan="3"/>
             </Grid>
-            <!--<Image
-                x:Name="MyImage"
-                Source="dotnet_bot.png"
-                HeightRequest="185"
-                Aspect="AspectFit" />-->
 
-            <Label
-                Text="Hello, welcome to Whatisit?"
-                TextColor="Black"
-                Style="{StaticResource Headline}"
-                SemanticProperties.HeadingLevel="Level1" />
-
-            <Label
-                Text="This is an object detection application, just press the camera button below and start detecting things!"
-                TextColor="Black"
-                Style="{StaticResource SubHeadline}"
-                SemanticProperties.HeadingLevel="Level2"
-                SemanticProperties.Description="Welcome to dot net Multi platform App U I" />
+            <VerticalStackLayout
+                IsVisible="{Binding IsCameraNotVisible}">
+                
+                <Label
+                    Text="Hello, welcome to Whatisit?"
+                    TextColor="Black"
+                    Style="{StaticResource Headline}"
+                    SemanticProperties.HeadingLevel="Level1" />
+                <Label
+                    Padding="25"
+                    Text="This is a simple object detection application, &#x0a; just press the camera button below and start detecting things!"
+                    TextColor="Black"
+                    Style="{StaticResource SubHeadline}"
+                    SemanticProperties.HeadingLevel="Level2"
+                    SemanticProperties.Description="Main message" />
+            </VerticalStackLayout>
+            
             <HorizontalStackLayout
                 HorizontalOptions="Center"
                 Spacing="10"
                 Padding="10">
                 <Button
                     x:Name="CameraBtn"
-                    ImageSource="video_solid.png"
+                    ImageSource="{Binding CameraImageSource}"
                     MaximumWidthRequest="80"
                     MaximumHeightRequest="60"
                     SemanticProperties.Hint="Opens/closes the camera app when clicked"
-                    Clicked="OnCameraClicked"
+                    Command="{Binding CameraCommand}"
                     HorizontalOptions="CenterAndExpand"/>
 
                 <Button
                     x:Name="DetectBtn"
                     Text="Detect 🔍"
-                    Clicked="DetectBtnClicked"
+                    Command="{Binding CaptureImageCommand}"
                     MaximumWidthRequest="100"
                     MaximumHeightRequest="60"
                     SemanticProperties.Hint="Opens/closes the camera app when clicked"
-                    HorizontalOptions="Center"/>
+                    HorizontalOptions="Center"
+                    IsVisible="{Binding IsDetectButtonVisible}"/>
 
+                <StackLayout
+                    IsVisible="{Binding IsCameraVisible}">
+                    <RadioButton Content="Front Camera"
+                         IsChecked="True"
+                         GroupName="CameraSelection" 
+                         TextColor="Black"/>
+                    <RadioButton Content="Rear Camera"
+                         GroupName="CameraSelection"
+                         TextColor="Black"/>
+                </StackLayout>
             </HorizontalStackLayout>
+            <Image
+                x:Name="MyImage"
+                Source="{Binding CapturedImageStream}"
+                HeightRequest="185"
+                Aspect="AspectFit"/>
+
+
         </VerticalStackLayout>
     </ScrollView>
-
 </ContentPage>
+
