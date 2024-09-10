@@ -10,7 +10,7 @@ using System.Windows.Input;
 
 namespace ObjectDetector.ViewModel
 {
-    public partial class MainPageViewModel : ObservableObject
+    public partial class MainPageViewModel : BaseViewModel
     {
         private readonly CameraView _cameraView;
 
