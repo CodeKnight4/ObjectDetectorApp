@@ -1,11 +1,14 @@
-﻿using CommunityToolkit.Maui.Views;
+﻿using CommunityToolkit.Maui.Core;
+using CommunityToolkit.Maui.Views;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using ObjectDetector.Services;
 using ObjectDetector.View;
 using ObjectDetector.YoloParser;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Windows.Input;
+using static Microsoft.Maui.ApplicationModel.Permissions;
 
 namespace ObjectDetector.ViewModel
 {
@@ -19,6 +22,9 @@ namespace ObjectDetector.ViewModel
 
         [ObservableProperty]
         private ImageSource? capturedImageStream;
+
+        [ObservableProperty]
+        private double currentZoom;
 
         [ObservableProperty]
         private bool isCameraVisible;
@@ -36,7 +42,6 @@ namespace ObjectDetector.ViewModel
         private string cameraImageSource;
 
         public ICommand CameraCommand { get; }
-        public ICommand DetectCommand { get; }
         public ICommand CaptureImageCommand { get; }
 
         public bool IsCameraNotVisible => !IsCameraVisible;
@@ -44,12 +49,10 @@ namespace ObjectDetector.ViewModel
         public MainPageViewModel(CameraView cameraView)
         {
             CameraCommand = new AsyncRelayCommand(OnCameraClicked);
-            DetectCommand = new AsyncRelayCommand(DetectBtnClicked);
             CaptureImageCommand = new AsyncRelayCommand(CaptureImage);
             _cameraView = cameraView;
             _boundingBoxes = [];
             Drawable = new EmptyDrawable();
-
             IsCameraVisible = false;
             IsDetectButtonVisible = false;
             CameraImageSource = "video_solid.png";
@@ -72,29 +75,32 @@ namespace ObjectDetector.ViewModel
         {
             IsCameraVisible = !IsCameraVisible;
             OnPropertyChanged(nameof(IsCameraNotVisible));
+            try
+            {
+                if (IsCameraVisible)
+                {
+                    await _cameraView.StartCameraPreview(CancellationToken.None);
+                    CameraImageSource = "video_slash_solid.png";
+                    IsDetectButtonVisible = true;
+                    CapturedImageStream = "";
 
-            if (IsCameraVisible)
-            {
-                CameraImageSource = "video_slash_solid.png";
-                IsCameraVisible = true;
-                IsDetectButtonVisible = true;
+                }
+                else
+                {
+                    _cameraView.StopCameraPreview();
+                    CameraImageSource = "video_solid.png";
+                    IsDetectButtonVisible = false;
+                    CapturedImageStream = "";  // Will update to hold frontpage image
+                    Drawable = new EmptyDrawable();
+                }
             }
-            else
+
+            catch (Exception ex)
             {
-                CameraImageSource = "video_solid.png";
-                IsCameraVisible = false;
-                IsDetectButtonVisible = false;
-                CapturedImageStream = "";
-                Drawable = new EmptyDrawable();
+                Trace.WriteLine($"Failed to start camera window: {ex.Message}");
             }
 
             await Task.Delay(1000); // Give a second to the program to setup the device camera
-        }
-
-        private async Task DetectBtnClicked()
-        {
-            Trace.WriteLine("Detecting objects.");
-            await Task.Delay(1000);
         }
 
         public async Task HandleMediaCaptured(MediaCapturedEventArgs imageStream)

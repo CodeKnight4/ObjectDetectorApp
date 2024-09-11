@@ -16,11 +16,12 @@
                   RowDefinitions="*"
                   HorizontalOptions="Center"
                   IsVisible="{Binding IsCameraVisible}">
-                
                 <toolkit:CameraView
                     x:Name="MyCamera"
                     MediaCaptured="MyCamera_MediaCaptured"
-                    Grid.ColumnSpan="3"/>
+                    Grid.ColumnSpan="3"
+                    SelectedCamera="{Binding SelectedCamera}"
+                    ZoomFactor="{Binding CurrentZoom}"/>
                 <GraphicsView 
                     x:Name="graphicsView"
                     Drawable="{Binding Drawable}"
@@ -47,7 +48,7 @@
             
             <HorizontalStackLayout
                 HorizontalOptions="Center"
-                Spacing="10"
+                Spacing="25"
                 Padding="10">
                 <Button
                     x:Name="CameraBtn"
@@ -70,13 +71,27 @@
 
                 <StackLayout
                     IsVisible="{Binding IsCameraVisible}">
-                    <RadioButton Content="Front Camera"
-                         IsChecked="True"
-                         GroupName="CameraSelection" 
-                         TextColor="Black"/>
-                    <RadioButton Content="Rear Camera"
-                         GroupName="CameraSelection"
-                         TextColor="Black"/>
+                    <Picker x:Name="picker"
+                        Title="Select which camera to use"
+                        TextColor="Black"
+                        TitleColor="Black"
+                        BackgroundColor="Black"
+                        ItemsSource="{Binding AvailableCameras}"
+                        SelectedItem="{Binding SelectedCamera}">
+                    </Picker>
+                </StackLayout>
+                <StackLayout
+                    IsVisible="{Binding IsCameraVisible}">
+                    <Label x:Name="topLabel"
+                        Text="Zoom"
+                        FontSize="18"
+                        TextColor="Black"
+                        HorizontalOptions="Center"
+                        VerticalOptions="Center" />
+                    <Slider 
+                        Maximum="{Binding SelectedCamera.MaximumZoomFactor, FallbackValue=1}"
+                        Minimum="{Binding SelectedCamera.MinimumZoomFactor, FallbackValue=1}"
+                        Value="{Binding CurrentZoom}" />
                 </StackLayout>
             </HorizontalStackLayout>
             <Image

@@ -1,4 +1,5 @@
-﻿using CommunityToolkit.Maui.Views;
+﻿using CommunityToolkit.Maui.Core;
+using CommunityToolkit.Maui.Views;
 using ObjectDetector.ViewModel;
 
 namespace ObjectDetector
@@ -6,20 +7,22 @@ namespace ObjectDetector
     public partial class MainPage : ContentPage
     {
         private readonly MainPageViewModel _viewModel;
+        private ICameraProvider _cameraProvider;
 
-        public MainPage()
+        public MainPage(ICameraProvider cameraProvider)
         {
             InitializeComponent();
+            _cameraProvider = cameraProvider;
             _viewModel = new MainPageViewModel(MyCamera);
             BindingContext = _viewModel;
 
             // MyCamera.MediaCaptured += MyCamera_MediaCaptured;
         }
 
-        //protected override void OnNavigatedTo(NavigatedToEventArgs args)
+        //protected async override void OnNavigatedTo(NavigatedToEventArgs args)
         //{
         //    base.OnNavigatedTo(args);
-        //    
+
         //}
 
         protected override void OnNavigatedFrom(NavigatedFromEventArgs args)
@@ -30,7 +33,16 @@ namespace ObjectDetector
 
         private async void MyCamera_MediaCaptured(object? sender, MediaCapturedEventArgs args)
         {
-            await _viewModel.HandleMediaCaptured(args);
+            try 
+            { 
+                await _viewModel.HandleMediaCaptured(args); 
+            }
+
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Media wasn't able to be captured: {ex}");
+            }
+
         }
     }
 }
