@@ -1,5 +1,4 @@
 ﻿using System.Diagnostics;
-using Microsoft.Maui.Primitives;
 using Microsoft.ML;
 using ObjectDetector.Model;
 using ObjectDetector.YoloParser;

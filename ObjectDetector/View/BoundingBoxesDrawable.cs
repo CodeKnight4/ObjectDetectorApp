@@ -1,10 +1,5 @@
 ﻿using ObjectDetector.YoloParser;
-using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Globalization;
 
 namespace ObjectDetector.View
 {
@@ -17,12 +12,27 @@ namespace ObjectDetector.View
             foreach (var box in _boundingBoxes)
             {
                 var rect = new RectF(box.Dimensions.X, box.Dimensions.Y, box.Dimensions.Width, box.Dimensions.Height);
-                // string text = $"{box.Label} ({box.Confidence * 100:0}%)";
+                string text = $"{new CultureInfo("en-GB").TextInfo.ToTitleCase(box.Label)} ({box.Confidence * 100:0}%)";
 
+                // Draw BoundingBox
                 canvas.StrokeColor = ColorConverter.ConvertToMauiColor(box.BoxColor);
                 canvas.StrokeSize = 2;
                 canvas.DrawRectangle(rect);
-      
+
+                // Draw Text Background
+                var font = new Microsoft.Maui.Graphics.Font("Arial");
+                canvas.Font = font;
+                canvas.FillColor = Colors.Black;
+                var textWidth = canvas.GetStringSize(text, font, 12).Width;
+                var textHeight = canvas.GetStringSize(text, font, 12).Height;
+                var textBackgroundRect = new RectF(box.Dimensions.X, box.Dimensions.Y - textHeight - 5, textWidth + 5, textHeight + 5);
+                canvas.FillRectangle(textBackgroundRect);
+
+                // Draw Text
+                canvas.FontColor = Colors.White;
+                canvas.FontSize = 12;
+                canvas.DrawString(text, box.Dimensions.X + 2, box.Dimensions.Y - textHeight + 8, HorizontalAlignment.Left);
+
             }
         }
     }

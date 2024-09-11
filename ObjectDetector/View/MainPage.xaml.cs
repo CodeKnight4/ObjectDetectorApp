@@ -1,6 +1,4 @@
-﻿using CommunityToolkit.Maui.Core;
-using CommunityToolkit.Maui.Views;
-using Microsoft.Maui.Controls;
+﻿using CommunityToolkit.Maui.Views;
 using ObjectDetector.ViewModel;
 
 namespace ObjectDetector
@@ -30,7 +28,7 @@ namespace ObjectDetector
             MyCamera.MediaCaptured -= MyCamera_MediaCaptured;
         }
 
-        private async void MyCamera_MediaCaptured(object? sender, CommunityToolkit.Maui.Views.MediaCapturedEventArgs args)
+        private async void MyCamera_MediaCaptured(object? sender, MediaCapturedEventArgs args)
         {
             await _viewModel.HandleMediaCaptured(args);
         }
