@@ -1,10 +1,9 @@
-﻿using CommunityToolkit.Maui.Core;
-using CommunityToolkit.Maui.Core.Primitives;
-using CommunityToolkit.Maui.Views;
+﻿using CommunityToolkit.Maui.Views;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using Microsoft.Maui.Controls;
 using ObjectDetector.Services;
+using ObjectDetector.View;
+using ObjectDetector.YoloParser;
 using System.Diagnostics;
 using System.Windows.Input;
 
@@ -13,6 +12,10 @@ namespace ObjectDetector.ViewModel
     public partial class MainPageViewModel : BaseViewModel
     {
         private readonly CameraView _cameraView;
+        private IList<YoloBoundingBox> _boundingBoxes;
+
+        [ObservableProperty]
+        private IDrawable drawable;
 
         [ObservableProperty]
         private ImageSource? capturedImageStream;
@@ -44,6 +47,8 @@ namespace ObjectDetector.ViewModel
             DetectCommand = new AsyncRelayCommand(DetectBtnClicked);
             CaptureImageCommand = new AsyncRelayCommand(CaptureImage);
             _cameraView = cameraView;
+            _boundingBoxes = [];
+            Drawable = new EmptyDrawable();
 
             IsCameraVisible = false;
             IsDetectButtonVisible = false;
@@ -80,6 +85,7 @@ namespace ObjectDetector.ViewModel
                 IsCameraVisible = false;
                 IsDetectButtonVisible = false;
                 CapturedImageStream = "";
+                Drawable = new EmptyDrawable();
             }
 
             await Task.Delay(1000); // Give a second to the program to setup the device camera
@@ -98,10 +104,11 @@ namespace ObjectDetector.ViewModel
 
             try
             {
-                //var imgSource = ImageSource.FromStream(() => imageStream.Media);
                 Trace.WriteLine($"Image saved to variable");
                 var detectionService = new ObjectDetectionService(imageStream.Media);
                 await detectionService.InitializeAsync();
+                _boundingBoxes = detectionService.ListOfBoxes;
+                Drawable = new BoundingBoxesDrawable(_boundingBoxes);
                 
                 // CapturedImageStream = Path.Combine(FileSystem.AppDataDirectory, "Images/Output/ProcessedImg.png");
                 // Troublesome line of code ^

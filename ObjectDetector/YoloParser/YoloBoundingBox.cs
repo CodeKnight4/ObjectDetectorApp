@@ -19,5 +19,6 @@ namespace ObjectDetector.YoloParser
         }
 
         public Color BoxColor { get; set; }
+
     }
 }

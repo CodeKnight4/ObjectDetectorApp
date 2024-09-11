@@ -57,6 +57,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <None Remove="Resources\Fonts\Arial.ttf" />
 	  <None Remove="Resources\Raw\TinyYolo2_model.onnx" />
 	</ItemGroup>
 
