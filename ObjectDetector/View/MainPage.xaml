@@ -1,106 +1,112 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
-             xmlns:local="clr-namespace:ObjectDetector.ViewModel"
-             x:Class="ObjectDetector.MainPage">
+<ContentPage
+    x:Class="ObjectDetector.MainPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:ObjectDetector.ViewModel"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit">
 
 
     <ScrollView>
         <VerticalStackLayout
-            Padding="15,15"
-            Spacing="25"
-            Background="PaleTurquoise">
-            <Grid x:Name="CameraWindow"
-                  ColumnDefinitions="*" 
-                  RowDefinitions="*"
-                  HorizontalOptions="Center"
-                  IsVisible="{Binding IsCameraVisible}">
+            Padding="0,15"
+            Background="PaleTurquoise"
+            Spacing="25">
+            <Label
+                FontAttributes="Bold"
+                IsVisible="{Binding IsCameraVisible}"
+                SemanticProperties.HeadingLevel="Level1"
+                Style="{StaticResource Headline}"
+                Text="Whatisit?"
+                TextColor="Black" />
+            <Grid
+                x:Name="CameraWindow"
+                ColumnDefinitions="*"
+                HorizontalOptions="Center"
+                IsVisible="{Binding IsCameraVisible}"
+                RowDefinitions="*">
                 <toolkit:CameraView
                     x:Name="MyCamera"
                     MediaCaptured="MyCamera_MediaCaptured"
-                    Grid.ColumnSpan="3"
                     SelectedCamera="{Binding SelectedCamera}"
-                    ZoomFactor="{Binding CurrentZoom}"/>
-                <GraphicsView 
+                    ZoomFactor="{Binding CurrentZoom}" />
+                <GraphicsView
                     x:Name="graphicsView"
                     Drawable="{Binding Drawable}"
                     HorizontalOptions="FillAndExpand"
                     VerticalOptions="FillAndExpand" />
             </Grid>
 
-            <VerticalStackLayout
-                IsVisible="{Binding IsCameraNotVisible}">
-                
+            <VerticalStackLayout IsVisible="{Binding IsCameraNotVisible}">
+
                 <Label
-                    Text="Hello, welcome to Whatisit?"
-                    TextColor="Black"
+                    SemanticProperties.HeadingLevel="Level1"
                     Style="{StaticResource Headline}"
-                    SemanticProperties.HeadingLevel="Level1" />
+                    Text="Hello, welcome to Whatisit?"
+                    TextColor="Black" />
+                <Image
+                    x:Name="MyImage"
+                    Aspect="AspectFit"
+                    HeightRequest="185"
+                    Source="dotnet_bot.png" />
                 <Label
                     Padding="25"
-                    Text="This is a simple object detection application, &#x0a; just press the camera button below and start detecting things!"
-                    TextColor="Black"
-                    Style="{StaticResource SubHeadline}"
+                    SemanticProperties.Description="Main message"
                     SemanticProperties.HeadingLevel="Level2"
-                    SemanticProperties.Description="Main message" />
+                    Style="{StaticResource SubHeadline}"
+                    Text="This is a simple object detection application, &#x0a; just press the camera button below and start detecting things!"
+                    TextColor="Black" />
             </VerticalStackLayout>
-            
-            <HorizontalStackLayout
-                HorizontalOptions="Center"
-                Spacing="25"
-                Padding="10">
-                <Button
-                    x:Name="CameraBtn"
-                    ImageSource="{Binding CameraImageSource}"
-                    MaximumWidthRequest="80"
-                    MaximumHeightRequest="60"
-                    SemanticProperties.Hint="Opens/closes the camera app when clicked"
-                    Command="{Binding CameraCommand}"
-                    HorizontalOptions="CenterAndExpand"/>
 
-                <Button
-                    x:Name="DetectBtn"
-                    Text="Detect 🔍"
-                    Command="{Binding CaptureImageCommand}"
-                    MaximumWidthRequest="100"
-                    MaximumHeightRequest="60"
-                    SemanticProperties.Hint="Opens/closes the camera app when clicked"
+            <VerticalStackLayout Spacing="10">
+                <HorizontalStackLayout
+                    Padding="10"
                     HorizontalOptions="Center"
-                    IsVisible="{Binding IsDetectButtonVisible}"/>
-
-                <StackLayout
-                    IsVisible="{Binding IsCameraVisible}">
-                    <Picker x:Name="picker"
-                        Title="Select which camera to use"
-                        TextColor="Black"
-                        TitleColor="Black"
-                        BackgroundColor="Black"
-                        ItemsSource="{Binding AvailableCameras}"
-                        SelectedItem="{Binding SelectedCamera}">
-                    </Picker>
-                </StackLayout>
-                <StackLayout
-                    IsVisible="{Binding IsCameraVisible}">
-                    <Label x:Name="topLabel"
-                        Text="Zoom"
-                        FontSize="18"
-                        TextColor="Black"
+                    Spacing="25">
+                    <Button
+                        x:Name="CameraBtn"
+                        Command="{Binding CameraCommand}"
                         HorizontalOptions="Center"
-                        VerticalOptions="Center" />
-                    <Slider 
-                        Maximum="{Binding SelectedCamera.MaximumZoomFactor, FallbackValue=1}"
-                        Minimum="{Binding SelectedCamera.MinimumZoomFactor, FallbackValue=1}"
-                        Value="{Binding CurrentZoom}" />
-                </StackLayout>
-            </HorizontalStackLayout>
-            <Image
-                x:Name="MyImage"
-                Source="{Binding CapturedImageStream}"
-                HeightRequest="185"
-                Aspect="AspectFit"/>
+                        ImageSource="{Binding CameraImageSource}"
+                        MaximumHeightRequest="60"
+                        MaximumWidthRequest="80"
+                        SemanticProperties.Hint="Opens/closes the camera app when clicked" />
 
-
+                    <Button
+                        x:Name="DetectBtn"
+                        Command="{Binding CaptureImageCommand}"
+                        IsVisible="{Binding IsCameraVisible}"
+                        MaximumHeightRequest="60"
+                        MaximumWidthRequest="100"
+                        SemanticProperties.Hint="Opens/closes the camera app when clicked"
+                        Text="Detect 🔍" />
+                </HorizontalStackLayout>
+                <HorizontalStackLayout HorizontalOptions="Center" IsVisible="{Binding IsCameraVisible}">
+                    <Picker
+                        x:Name="picker"
+                        Title="Select which camera to use"
+                        BackgroundColor="{StaticResource PrimaryDark}"
+                        ItemDisplayBinding="{Binding Name}"
+                        ItemsSource="{Binding AvailableCameras}"
+                        SelectedItem="{Binding SelectedCamera, Mode=TwoWay}"
+                        TextColor="Black"
+                        TitleColor="Black" />
+                </HorizontalStackLayout>
+                <HorizontalStackLayout HorizontalOptions="Center" IsVisible="{Binding IsCameraVisible}">
+                    <StackLayout>
+                        <Label
+                            x:Name="topLabel"
+                            HorizontalOptions="Center"
+                            Text="Zoom"
+                            TextColor="Black" />
+                        <Slider
+                            Maximum="{Binding SelectedCamera.MaximumZoomFactor, FallbackValue=1}"
+                            Minimum="{Binding SelectedCamera.MinimumZoomFactor, FallbackValue=1}"
+                            WidthRequest="300"
+                            Value="{Binding CurrentZoom}" />
+                    </StackLayout>
+                </HorizontalStackLayout>
+            </VerticalStackLayout>
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>

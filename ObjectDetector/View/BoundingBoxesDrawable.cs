@@ -3,9 +3,9 @@ using System.Globalization;
 
 namespace ObjectDetector.View
 {
-    public class BoundingBoxesDrawable(IList<YoloBoundingBox>? boundingBoxes) : IDrawable
+    public class BoundingBoxesDrawable(IList<YoloBoundingBox> boundingBoxes) : IDrawable
     {
-        private readonly IList<YoloBoundingBox>? _boundingBoxes = boundingBoxes;
+        private readonly IList<YoloBoundingBox> _boundingBoxes = boundingBoxes;
 
         public void Draw(ICanvas canvas, RectF dirtyRect)
         {

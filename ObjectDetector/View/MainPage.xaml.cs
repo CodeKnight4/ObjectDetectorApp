@@ -7,12 +7,10 @@ namespace ObjectDetector
     public partial class MainPage : ContentPage
     {
         private readonly MainPageViewModel _viewModel;
-        private ICameraProvider _cameraProvider;
 
-        public MainPage(ICameraProvider cameraProvider)
+        public MainPage()
         {
             InitializeComponent();
-            _cameraProvider = cameraProvider;
             _viewModel = new MainPageViewModel(MyCamera);
             BindingContext = _viewModel;
 

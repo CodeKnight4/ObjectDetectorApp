@@ -18,19 +18,16 @@ namespace ObjectDetector.ViewModel
         private IList<YoloBoundingBox> _boundingBoxes;
 
         [ObservableProperty]
-        private IDrawable drawable;
+        private IReadOnlyList<CameraInfo> availableCameras;
 
         [ObservableProperty]
-        private ImageSource? capturedImageStream;
+        private IDrawable drawable;
 
         [ObservableProperty]
         private double currentZoom;
 
         [ObservableProperty]
         private bool isCameraVisible;
-
-        [ObservableProperty]
-        private bool isDetectButtonVisible;
 
         [ObservableProperty]
         private bool isFrontCameraSelected;
@@ -40,6 +37,17 @@ namespace ObjectDetector.ViewModel
 
         [ObservableProperty]
         private string cameraImageSource;
+
+        private CameraInfo? _selectedCamera;
+        public CameraInfo? SelectedCamera
+        {
+            get { return _selectedCamera; }
+            set
+            {
+                SetProperty(ref _selectedCamera, value);
+                UpdateCameraView(); // Whenever selected camera is changed this will run
+            }
+        }
 
         public ICommand CameraCommand { get; }
         public ICommand CaptureImageCommand { get; }
@@ -52,11 +60,33 @@ namespace ObjectDetector.ViewModel
             CaptureImageCommand = new AsyncRelayCommand(CaptureImage);
             _cameraView = cameraView;
             _boundingBoxes = [];
+            AvailableCameras = [];
             Drawable = new EmptyDrawable();
             IsCameraVisible = false;
-            IsDetectButtonVisible = false;
             CameraImageSource = "video_solid.png";
-            CapturedImageStream = "dotnet_bot.png";
+        }
+
+        private void UpdateCameraView()
+        {
+            if (SelectedCamera != null)
+            {
+                _cameraView.SelectedCamera = SelectedCamera;
+            }
+        }
+
+        private async void UpdateCameraList()
+        {
+            try
+            {
+                var cameraList = await _cameraView.GetAvailableCameras(CancellationToken.None);
+                AvailableCameras = cameraList;
+                SelectedCamera = AvailableCameras[0];
+                
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Can't find any available cameras: {ex}");
+            }
         }
 
         private async Task CaptureImage()
@@ -80,17 +110,13 @@ namespace ObjectDetector.ViewModel
                 if (IsCameraVisible)
                 {
                     await _cameraView.StartCameraPreview(CancellationToken.None);
+                    UpdateCameraList();
                     CameraImageSource = "video_slash_solid.png";
-                    IsDetectButtonVisible = true;
-                    CapturedImageStream = "";
-
                 }
                 else
                 {
                     _cameraView.StopCameraPreview();
                     CameraImageSource = "video_solid.png";
-                    IsDetectButtonVisible = false;
-                    CapturedImageStream = "";  // Will update to hold frontpage image
                     Drawable = new EmptyDrawable();
                 }
             }
@@ -114,11 +140,7 @@ namespace ObjectDetector.ViewModel
                 var detectionService = new ObjectDetectionService(imageStream.Media);
                 await detectionService.InitializeAsync();
                 _boundingBoxes = detectionService.ListOfBoxes;
-                Drawable = new BoundingBoxesDrawable(_boundingBoxes);
-                
-                // CapturedImageStream = Path.Combine(FileSystem.AppDataDirectory, "Images/Output/ProcessedImg.png");
-                // Troublesome line of code ^
-
+                Drawable = _boundingBoxes.Any() ? new BoundingBoxesDrawable(_boundingBoxes) : new EmptyDrawable();       
             }
             catch (Exception ex)
             {

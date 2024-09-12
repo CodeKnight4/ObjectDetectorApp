@@ -12,6 +12,7 @@ namespace ObjectDetector
             var builder = MauiApp.CreateBuilder();
             builder
                 .UseMauiApp<App>()
+                .UseMauiCommunityToolkit()
                 .UseMauiCommunityToolkitCamera()
                 .ConfigureFonts(fonts =>
                 {
