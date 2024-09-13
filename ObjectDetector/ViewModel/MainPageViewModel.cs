@@ -30,12 +30,6 @@ namespace ObjectDetector.ViewModel
         private bool isCameraVisible;
 
         [ObservableProperty]
-        private bool isFrontCameraSelected;
-
-        [ObservableProperty]
-        private bool isRearCameraSelected;
-
-        [ObservableProperty]
         private string cameraImageSource;
 
         private CameraInfo? _selectedCamera;
@@ -50,7 +44,7 @@ namespace ObjectDetector.ViewModel
         }
 
         public ICommand CameraCommand { get; }
-        public ICommand CaptureImageCommand { get; }
+        public ICommand CaptureImageCommand { get; }  
 
         public bool IsCameraNotVisible => !IsCameraVisible;
 
@@ -85,7 +79,7 @@ namespace ObjectDetector.ViewModel
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Can't find any available cameras: {ex}");
+                Trace.WriteLine($"Can't find any available cameras: {ex}");
             }
         }
 
@@ -97,7 +91,7 @@ namespace ObjectDetector.ViewModel
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"There were errors: {ex}");
+                Trace.WriteLine($"There were errors: {ex}");
             }
         }
 
@@ -136,7 +130,7 @@ namespace ObjectDetector.ViewModel
 
             try
             {
-                Trace.WriteLine($"Image saved to variable");
+                // Trace.WriteLine($"Image saved to variable");
                 var detectionService = new ObjectDetectionService(imageStream.Media);
                 await detectionService.InitializeAsync();
                 _boundingBoxes = detectionService.ListOfBoxes;
@@ -146,8 +140,6 @@ namespace ObjectDetector.ViewModel
             {
                 Trace.WriteLine($"Failed to save image: {ex.Message}");
             }
-
-            await Task.Delay(3000);
         }
     }
 }

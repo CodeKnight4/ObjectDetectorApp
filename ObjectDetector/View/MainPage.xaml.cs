@@ -1,12 +1,16 @@
 ﻿using CommunityToolkit.Maui.Core;
 using CommunityToolkit.Maui.Views;
+using Microsoft.Maui.Dispatching;
 using ObjectDetector.ViewModel;
+using System.Threading;
+using System.Timers;
 
 namespace ObjectDetector
 {
     public partial class MainPage : ContentPage
     {
         private readonly MainPageViewModel _viewModel;
+        private CancellationTokenSource? _cancellationTokenSource;
 
         public MainPage()
         {
@@ -41,6 +45,30 @@ namespace ObjectDetector
                 Console.WriteLine($"Media wasn't able to be captured: {ex}");
             }
 
+        }
+
+        private void DetectSwitchToggled(object sender, ToggledEventArgs e)
+        {
+            if (e.Value)
+            {
+                // Start continuous detection
+                _cancellationTokenSource = new CancellationTokenSource();
+                StartContinuousCapture(_cancellationTokenSource.Token);
+            }
+            else
+            {
+                // Stop continuous detection
+                _cancellationTokenSource?.Cancel();
+            }
+        }
+
+        private async void StartContinuousCapture(CancellationToken token)
+        {
+            while (!token.IsCancellationRequested)
+            {
+                _viewModel.CaptureImageCommand.Execute(null);
+                await Task.Delay(1000); // Delay to avoid rapid looping, adjust as needed
+            }
         }
     }
 }
