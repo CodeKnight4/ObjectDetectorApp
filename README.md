@@ -9,7 +9,10 @@ Whatisit? is a Windows-based object detection application built using .NET MAUI.
 - View bounding boxes and labels on detected objects
 
 ## Demo
-To be added
+![image](https://github.com/user-attachments/assets/0f728333-c2dc-42cf-a8b5-9dca7b8260bf)
+![image](https://github.com/user-attachments/assets/082fe8b8-d57c-47e0-b6f7-92d3613896d5)
+
+
 
 ## References
 
