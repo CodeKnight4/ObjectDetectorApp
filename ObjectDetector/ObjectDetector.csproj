@@ -21,7 +21,7 @@
 		<Nullable>enable</Nullable>
 
 		<!-- Display name -->
-		<ApplicationTitle>ObjectDetector</ApplicationTitle>
+		<ApplicationTitle>WhatIsIt?</ApplicationTitle>
 
 		<!-- App Identifier -->
 		<ApplicationId>com.whatisit.objectdetector</ApplicationId>
@@ -40,7 +40,7 @@
 
 	<ItemGroup>
 		<!-- App Icon -->
-		<MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#512BD4" />
+		<MauiIcon Include="Resources\AppIcon\logodesign.svg" />
 
 		<!-- Splash Screen -->
 		<MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#512BD4" BaseSize="128,128" />
@@ -58,6 +58,8 @@
 
 	<ItemGroup>
 	  <None Remove="Resources\Fonts\Arial.ttf" />
+	  <None Remove="Resources\Images\detective.png" />
+	  <None Remove="Resources\Images\logo.png" />
 	  <None Remove="Resources\Raw\TinyYolo2_model.onnx" />
 	</ItemGroup>
 
