@@ -12,13 +12,35 @@
             Padding="0,15"
             Background="PaleTurquoise"
             Spacing="25">
-            <Label
-                FontAttributes="Bold"
+            <HorizontalStackLayout
+                HorizontalOptions="Center"
                 IsVisible="{Binding IsCameraVisible}"
-                SemanticProperties.HeadingLevel="Level1"
-                Style="{StaticResource Headline}"
-                Text="Whatisit?"
-                TextColor="Black" />
+                Spacing="20">
+                <Label
+                    FontAttributes="Bold"
+                    HorizontalOptions="Center"
+                    SemanticProperties.HeadingLevel="Level1"
+                    Style="{StaticResource Headline}"
+                    Text="Whatisit?"
+                    TextColor="Black"
+                    VerticalOptions="Center" />
+                <Frame
+                    Margin="10"
+                    BorderColor="Black"
+                    CornerRadius="50"
+                    HeightRequest="60"
+                    HorizontalOptions="Center"
+                    IsClippedToBounds="True"
+                    VerticalOptions="Center"
+                    WidthRequest="60">
+                    <Image
+                        x:Name="MyLogo"
+                        Margin="-20"
+                        HeightRequest="100"
+                        Source="dotnet_bot.png"
+                        WidthRequest="100" />
+                </Frame>
+            </HorizontalStackLayout>
             <Grid
                 x:Name="CameraWindow"
                 ColumnDefinitions="*"
@@ -36,7 +58,6 @@
                     HorizontalOptions="FillAndExpand"
                     VerticalOptions="FillAndExpand" />
             </Grid>
-
             <VerticalStackLayout IsVisible="{Binding IsCameraNotVisible}">
 
                 <Label
@@ -58,30 +79,63 @@
                     TextColor="Black" />
             </VerticalStackLayout>
 
-            <VerticalStackLayout Spacing="10">
-                <HorizontalStackLayout
-                    Padding="10"
-                    HorizontalOptions="Center"
-                    Spacing="25">
+            <VerticalStackLayout HorizontalOptions="Center">
+                <Grid ColumnDefinitions="120,*" IsVisible="{Binding IsCameraVisible}">
+                    <Label
+                        x:Name="detectLabel"
+                        Grid.Column="1"
+                        HorizontalOptions="Center"
+                        Text="Detect Mode 🔍"
+                        TextColor="Black" />
+                </Grid>
+
+                <Grid x:Name="MainGrid" ColumnDefinitions="*,*">
                     <Button
                         x:Name="CameraBtn"
                         Command="{Binding CameraCommand}"
-                        HorizontalOptions="Center"
                         ImageSource="{Binding CameraImageSource}"
                         MaximumHeightRequest="60"
                         MaximumWidthRequest="80"
-                        SemanticProperties.Hint="Opens/closes the camera app when clicked" />
+                        SemanticProperties.Hint="Opens/closes the camera app when clicked">
+                        <Button.Triggers>
+                            <DataTrigger
+                                Binding="{Binding IsCameraVisible}"
+                                TargetType="Button"
+                                Value="False">
+                                <Setter Property="Grid.ColumnSpan" Value="2" />
+                            </DataTrigger>
+                        </Button.Triggers>
+                    </Button>
 
-                    <Button
+                    <!--<Button
                         x:Name="DetectBtn"
                         Command="{Binding CaptureImageCommand}"
                         IsVisible="{Binding IsCameraVisible}"
                         MaximumHeightRequest="60"
                         MaximumWidthRequest="100"
                         SemanticProperties.Hint="Opens/closes the camera app when clicked"
-                        Text="Detect 🔍" />
-                </HorizontalStackLayout>
-                <HorizontalStackLayout HorizontalOptions="Center" IsVisible="{Binding IsCameraVisible}">
+                        Text="Detect 🔍" />-->
+
+                    <Grid
+                        Grid.Column="1"
+                        Padding="15"
+                        BackgroundColor="{StaticResource PrimaryDark}"
+                        IsVisible="{Binding IsCameraVisible}"
+                        RowDefinitions="*,*">
+                        <Grid.Clip>
+                            <RoundRectangleGeometry CornerRadius="5" Rect="10,10,90,50" />
+                        </Grid.Clip>
+                        <Switch
+                            x:Name="DetectSwitch"
+                            IsToggled="False"
+                            IsVisible="{Binding IsCameraVisible}"
+                            Toggled="DetectSwitchToggled" />
+                    </Grid>
+                </Grid>
+                <HorizontalStackLayout
+                    Margin="10"
+                    HorizontalOptions="Center"
+                    IsVisible="{Binding IsCameraVisible}">
                     <Picker
                         x:Name="picker"
                         Title="Select which camera to use"

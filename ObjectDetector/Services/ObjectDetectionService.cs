@@ -52,7 +52,7 @@ namespace ObjectDetector.Services
 
             modelFilePath = await ObjectDetectionService.SaveStreamToTemporaryFile(modelStream, modelFilePath);
 
-            Trace.WriteLine("Hi there");
+            //Trace.WriteLine("Hi there");
         }
 
         public async Task InitializeAsync()
@@ -76,7 +76,7 @@ namespace ObjectDetector.Services
                 IDataView imageDataView = MlContext.Data.LoadFromEnumerable(new[] { imageNetData });
 
                 // Create instance of model scorer
-                var modelScorer = new OnnxModelScorer(imagesFolder, modelFilePath, MlContext);
+                var modelScorer = new OnnxModelScorer(modelFilePath, MlContext);
                 // Trace.WriteLine("Step 1");
 
                 // Use model to score data
@@ -91,13 +91,12 @@ namespace ObjectDetector.Services
                     .Select(boxes => YoloOutputParser.FilterBoundingBoxes(boxes, 5, .5F));
 
                 // Trace.WriteLine("Step 3");
-                string imageFileName = "ProcessedImage.png";
+                // string imageFileName = "ProcessedImage.png";
                 IList<YoloBoundingBox> detectedObjects = boundingBoxes.ElementAt(0);
                 // Trace.WriteLine("Step 4");
                 DrawBoundingBox(detectedObjects);
                 // Trace.WriteLine("Step 5");
-                ObjectDetectionService.LogDetectedObjects(imageFileName, detectedObjects);
-                // Trace.WriteLine("We have finished");
+                // ObjectDetectionService.LogDetectedObjects(imageFileName, detectedObjects); Can comment out as only prints to console
 
             }
             catch (Exception ex)
@@ -106,7 +105,7 @@ namespace ObjectDetector.Services
                 Trace.WriteLine("We have failed");
             }
 
-            Trace.WriteLine("========= End of Process..Hit any Key ========");
+            //Trace.WriteLine("========= End of Process..Hit any Key ========");
         }
 
         public void DrawBoundingBox(IList<YoloBoundingBox> filteredBoundingBoxes)
@@ -176,9 +175,9 @@ namespace ObjectDetector.Services
                 skCanvas.DrawText(text, x + 2, y - 2, textPaint);
             }
 
-            var outputPath = Path.Combine(outputFolder, "ProcessedImg.png");
-            using var outputStream = File.OpenWrite(outputPath);
-            skBitmap.Encode(outputStream, SKEncodedImageFormat.Png, 100);
+            //var outputPath = Path.Combine(outputFolder, "ProcessedImg.png");
+            //using var outputStream = File.OpenWrite(outputPath);
+            //skBitmap.Encode(outputStream, SKEncodedImageFormat.Png, 100);
         }
 
         // The code below only works for windows, may return back to it if SkiaSharp doesn't work out

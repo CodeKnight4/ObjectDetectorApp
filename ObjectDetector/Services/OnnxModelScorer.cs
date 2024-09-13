@@ -6,9 +6,9 @@ using ObjectDetector.Model;
 
 namespace ObjectDetector.Services
 {
-    public class OnnxModelScorer(string imagesFolder, string modelLocation, MLContext mlContext)
+    public class OnnxModelScorer(string modelLocation, MLContext mlContext)
     {
-        private readonly string imagesFolder = imagesFolder;
+        // private readonly string imagesFolder = imagesFolder; put back in constructor if needed
         private readonly string modelLocation = modelLocation;
         private readonly MLContext mlContext = mlContext;
 
@@ -33,9 +33,9 @@ namespace ObjectDetector.Services
 
         private TransformerChain<OnnxTransformer> LoadModel(string modelLocation)
         {
-            Trace.WriteLine("Read model");
-            Trace.WriteLine($"Model location: {modelLocation}");
-            Trace.WriteLine($"Default parameters: image size=({ImageNetSettings.imageWidth},{ImageNetSettings.imageHeight})");
+            //Trace.WriteLine("Read model");
+            //Trace.WriteLine($"Model location: {modelLocation}");
+            //Trace.WriteLine($"Default parameters: image size=({ImageNetSettings.imageWidth},{ImageNetSettings.imageHeight})");
 
             var data = mlContext.Data.LoadFromEnumerable(new List<ImageNetData>());
 
@@ -51,10 +51,10 @@ namespace ObjectDetector.Services
 
         private IEnumerable<float[]> PredictDataUsingModel(IDataView testData, TransformerChain<OnnxTransformer> model)
         {
-            Trace.WriteLine($"Images location: {imagesFolder}");
-            Trace.WriteLine("");
-            Trace.WriteLine("=====Identify the objects in the images=====");
-            Trace.WriteLine("");
+            //Trace.WriteLine($"Images location: {imagesFolder}");
+            //Trace.WriteLine("");
+            //Trace.WriteLine("=====Identify the objects in the images=====");
+            //Trace.WriteLine("");
 
             IDataView scoredData = model.Transform(testData);
 
