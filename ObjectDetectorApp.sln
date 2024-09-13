@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.11.35222.181
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ObjectDetector", "ObjectDetector\ObjectDetector.csproj", "{DDB06F8B-098E-4684-9F85-9C85FD8C392E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ObjectDetector", "ObjectDetector\ObjectDetector.csproj", "{DDB06F8B-098E-4684-9F85-9C85FD8C392E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ObjectDetectorAppTest", "ObjectDetectorAppTest\ObjectDetectorAppTest.csproj", "{8E77BB04-EC8E-4BD8-BD08-14C263794EA8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,6 +19,10 @@ Global
 		{DDB06F8B-098E-4684-9F85-9C85FD8C392E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DDB06F8B-098E-4684-9F85-9C85FD8C392E}.Release|Any CPU.Build.0 = Release|Any CPU
 		{DDB06F8B-098E-4684-9F85-9C85FD8C392E}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{8E77BB04-EC8E-4BD8-BD08-14C263794EA8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8E77BB04-EC8E-4BD8-BD08-14C263794EA8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8E77BB04-EC8E-4BD8-BD08-14C263794EA8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8E77BB04-EC8E-4BD8-BD08-14C263794EA8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

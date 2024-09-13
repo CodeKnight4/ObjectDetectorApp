@@ -6,7 +6,6 @@
     xmlns:local="clr-namespace:ObjectDetector.ViewModel"
     xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit">
 
-
     <ScrollView>
         <VerticalStackLayout
             Padding="0,15"
@@ -26,19 +25,23 @@
                     VerticalOptions="Center" />
                 <Frame
                     Margin="10"
+                    BackgroundColor="White"
                     BorderColor="Black"
                     CornerRadius="50"
-                    HeightRequest="60"
+                    HeightRequest="85"
                     HorizontalOptions="Center"
                     IsClippedToBounds="True"
                     VerticalOptions="Center"
-                    WidthRequest="60">
+                    WidthRequest="85">
                     <Image
                         x:Name="MyLogo"
                         Margin="-20"
-                        HeightRequest="100"
-                        Source="dotnet_bot.png"
-                        WidthRequest="100" />
+                        BackgroundColor="White"
+                        HeightRequest="65"
+                        HorizontalOptions="Center"
+                        Source="logo.png"
+                        VerticalOptions="Center"
+                        WidthRequest="65" />
                 </Frame>
             </HorizontalStackLayout>
             <Grid
@@ -58,7 +61,7 @@
                     HorizontalOptions="FillAndExpand"
                     VerticalOptions="FillAndExpand" />
             </Grid>
-            <VerticalStackLayout IsVisible="{Binding IsCameraNotVisible}">
+            <VerticalStackLayout IsVisible="{Binding IsCameraNotVisible}" Spacing="40">
 
                 <Label
                     SemanticProperties.HeadingLevel="Level1"
@@ -68,8 +71,8 @@
                 <Image
                     x:Name="MyImage"
                     Aspect="AspectFit"
-                    HeightRequest="185"
-                    Source="dotnet_bot.png" />
+                    HeightRequest="200"
+                    Source="detective.png" />
                 <Label
                     Padding="25"
                     SemanticProperties.Description="Main message"

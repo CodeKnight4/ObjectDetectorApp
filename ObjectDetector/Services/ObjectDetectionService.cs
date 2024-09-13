@@ -51,8 +51,6 @@ namespace ObjectDetector.Services
             }
 
             modelFilePath = await ObjectDetectionService.SaveStreamToTemporaryFile(modelStream, modelFilePath);
-
-            //Trace.WriteLine("Hi there");
         }
 
         public async Task InitializeAsync()
