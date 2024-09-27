@@ -83,7 +83,10 @@
             </VerticalStackLayout>
 
             <VerticalStackLayout HorizontalOptions="Center">
-                <Grid ColumnDefinitions="120,*" IsVisible="{Binding IsCameraVisible}">
+                <Grid
+                    Padding="5"
+                    ColumnDefinitions="150,*"
+                    IsVisible="{Binding IsCameraVisible}">
                     <Label
                         x:Name="detectLabel"
                         Grid.Column="1"
@@ -119,7 +122,7 @@
                         SemanticProperties.Hint="Opens/closes the camera app when clicked"
                         Text="Detect 🔍" />-->
 
-                    <Grid
+                    <!--<Grid
                         Grid.Column="1"
                         Padding="15"
                         BackgroundColor="{StaticResource PrimaryDark}"
@@ -133,7 +136,29 @@
                             IsToggled="False"
                             IsVisible="{Binding IsCameraVisible}"
                             Toggled="DetectSwitchToggled" />
-                    </Grid>
+                    </Grid>-->
+                    <Frame
+                        Grid.Column="1"
+                        Padding="15"
+                        BackgroundColor="{StaticResource PrimaryDark}"
+                        BorderColor="{StaticResource PrimaryDark}"
+                        CornerRadius="6"
+                        HeightRequest="60"
+                        IsVisible="{Binding IsCameraVisible}"
+                        WidthRequest="110">
+                        <FlexLayout
+                            AlignItems="Center"
+                            Direction="Row"
+                            JustifyContent="Center">
+                            <Switch
+                                x:Name="DetectSwitch"
+                                Margin="0,-3,0,0"
+                                IsToggled="False"
+                                IsVisible="{Binding IsCameraVisible}"
+                                Toggled="DetectSwitchToggled" />
+                        </FlexLayout>
+                    </Frame>
+
                 </Grid>
                 <HorizontalStackLayout
                     Margin="10"

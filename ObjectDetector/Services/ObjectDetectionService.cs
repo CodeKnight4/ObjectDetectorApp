@@ -102,8 +102,6 @@ namespace ObjectDetector.Services
                 Trace.WriteLine(ex.ToString());
                 Trace.WriteLine("We have failed");
             }
-
-            //Trace.WriteLine("========= End of Process..Hit any Key ========");
         }
 
         public void DrawBoundingBox(IList<YoloBoundingBox> filteredBoundingBoxes)
@@ -225,17 +223,17 @@ namespace ObjectDetector.Services
         //    image.Save(Path.Combine(outputFolder, "ProcessedImg.png"));
         //}
 
-        static void LogDetectedObjects(string imageName, IList<YoloBoundingBox> boundingBoxes)
-        {
-            Trace.WriteLine($".....The objects in the image {imageName} are detected as below....");
+        //static void LogDetectedObjects(string imageName, IList<YoloBoundingBox> boundingBoxes)
+        //{
+        //    Trace.WriteLine($".....The objects in the image {imageName} are detected as below....");
 
-            foreach (var box in boundingBoxes)
-            {
-                Trace.WriteLine($"{box.Label} and its Confidence score: {box.Confidence}");
-            }
+        //    foreach (var box in boundingBoxes)
+        //    {
+        //        Trace.WriteLine($"{box.Label} and its Confidence score: {box.Confidence}");
+        //    }
 
-            Trace.WriteLine("");
-        }
+        //    Trace.WriteLine("");
+        //}
 
         public static async Task<Stream> LoadModelFileAsync(string fileName)
         {
