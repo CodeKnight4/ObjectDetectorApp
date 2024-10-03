@@ -113,31 +113,17 @@
                         </Button.Triggers>
                     </Button>
 
-                    <!--<Button
+                    <Button
                         x:Name="DetectBtn"
+                        Grid.Column="1"
                         Command="{Binding CaptureImageCommand}"
                         IsVisible="{Binding IsCameraVisible}"
                         MaximumHeightRequest="60"
                         MaximumWidthRequest="100"
                         SemanticProperties.Hint="Opens/closes the camera app when clicked"
-                        Text="Detect 🔍" />-->
+                        Text="Detect 🔍" />
 
-                    <!--<Grid
-                        Grid.Column="1"
-                        Padding="15"
-                        BackgroundColor="{StaticResource PrimaryDark}"
-                        IsVisible="{Binding IsCameraVisible}"
-                        RowDefinitions="*,*">
-                        <Grid.Clip>
-                            <RoundRectangleGeometry CornerRadius="5" Rect="10,10,90,50" />
-                        </Grid.Clip>
-                        <Switch
-                            x:Name="DetectSwitch"
-                            IsToggled="False"
-                            IsVisible="{Binding IsCameraVisible}"
-                            Toggled="DetectSwitchToggled" />
-                    </Grid>-->
-                    <Frame
+                    <!--<Frame
                         Grid.Column="1"
                         Padding="15"
                         BackgroundColor="{StaticResource PrimaryDark}"
@@ -157,7 +143,7 @@
                                 IsVisible="{Binding IsCameraVisible}"
                                 Toggled="DetectSwitchToggled" />
                         </FlexLayout>
-                    </Frame>
+                    </Frame>-->
 
                 </Grid>
                 <HorizontalStackLayout
